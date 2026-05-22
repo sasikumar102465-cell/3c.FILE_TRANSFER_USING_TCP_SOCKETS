@@ -10,13 +10,55 @@ To write a python program for creating File Transfer using TCP Sockets Links
 ## PROGRAM
 ## Client
 ~~~
-
+#Developed by: SASIKUMAR S
+#Register number: 212225100046
+import socket 
+s = socket.socket() 
+host = socket.gethostname() 
+port = 60000 
+s.connect((host, port)) 
+s.send("Hello server!".encode()) 
+with open('received_file', 'wb') as f: 
+    while True: 
+        print('receiving data...') 
+        data = s.recv(1024) 
+        print('data=%s', (data)) 
+        if not data: 
+            break 
+        f.write(data) 
+f.close() 
+print('Successfully get the file') 
+s.close() 
+print('connection closed') 
 ~~~
 ## Server
 ~~~
-
+#Developed by: SASIKUMAR S
+#Register number: 212225100046
+import socket 
+port = 60000 
+s = socket.socket() 
+host = socket.gethostname() 
+s.bind((host, port))
+s.listen(5) 
+while True: 
+    conn, addr = s.accept()
+    data = conn.recv(1024) 
+    print('Server received', repr(data)) 
+    filename='mytext.txt' 
+    f = open(filename,'rb') 
+    l = f.read(1024) 
+    while (l): 
+        conn.send(l) 
+        print('Sent ',repr(l))
+        l = f.read(1024) 
+    f.close() 
+    print('Done sending') 
+    conn.send('Thank you for connecting'.encode()) 
+    conn.close()
 ~~~
 ## OUPUT
+<img width="1918" height="1020" alt="image" src="https://github.com/user-attachments/assets/cb9ad6e5-8ca7-47fa-afde-f9af1b99cb2a" />
 
 ## RESULT
 Thus, the python program for creating File Transfer using TCP Sockets Links was 
